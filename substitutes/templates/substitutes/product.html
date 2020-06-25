@@ -1,0 +1,395 @@
+{% extends "substitutes/base.html" %}
+{% block title %}Produit{% endblock %}
+{% block header %}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-0 col-md-3"></div>
+        <div class="col-12 col-md-6 text-center">
+            <h2 class="mt-5 p-2 search">{% if error %}{{error}}{% else %}{{ product.name }}{% endif %}</h2>
+        </div>
+        <div class="col-0 col-md-3"></div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block content %}
+
+<section class="container-fluid" id="product-intro">
+
+    <div class="row text-center p-5">
+
+        <div class="col-0 col-md-2"></div>
+
+        <div class="col-12 col-md-4">
+
+            <img src="{{ product.image }}" class="roundedImage" alt="">
+
+        </div>
+
+        <div class="col-12 col-md-4 sheet">
+
+            <h2 class="col-12 p-0 m-0 name">{{ product.name }}</h2>
+            <h3 class="col-12 p-0 m-0 brand">{{ product.brands }}</h2>
+
+            {% load static %}
+            <div class="col-12 p-0 mt-4">
+                <a href="http://www.mangerbouger.fr/Manger-Mieux/Comment-manger-mieux/Comprendre-les-infos-nutritionnelles2/Le-Nutri-Score-l-information-nutritionnelle-en-un-coup-d-oeil?xtor=SEC-33-GOO-[Nutriscore]--S-[nutriscore]&gclid=Cj0KCQjw4qvlBRDiARIsAHme6ovz-0icwtqwfomod9620h_VV4KjOibGtUeQZOlDFoqtVAgOTUu97ZcaAqCFEALw_wcB">
+                    <img src="{% static 'img/nutriscores/nutriscore_'|add:product.nutriscore|add:'.png' %}" class="nutriscore" alt="">
+                </a>
+            </div>
+
+            <div class="col-12 pl-0 pt-4">
+                <a href="{{ product.url }}">
+                    <button class="btn btn-warning">Voir la fiche d'OpenFoodFacts</button>
+                </a>
+            </div>
+
+            <div class="col-12 pl-0 pt-4">
+                <a href="{% url 'add_favorite' product.id %}" class="btn btn-outline-danger active" role="button" aria-pressed="true">
+                    <i class="far fa-heart"></i>
+                </a>
+            </div>
+
+        </div>
+
+        <div class="col-0 col-md-2"></div>
+
+    </div>
+
+</section>
+
+<section class="container-fluid" id="product-nutriments">
+
+    <div class="row text-center p-5">
+
+        <div class="col-0 col-md-2"></div>
+
+        <div class="col-12 col-md-8 p-0">
+
+            <h2 class="col-12 pb-4">Valeurs nutritionnelles</h3>
+
+            {% load dict_tags %}
+
+            <div class="row p-2">
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/nutriscore.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/ingredients.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/salt.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/saturated-fat.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/salt.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/kcal.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/kj.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/fiber.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/sugar.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/protein.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/carbohydrates.png' %}" class="img-fluid">
+                </div>
+                <div class="col-1">
+                    <img src="{% static 'substitutes/img/nutriments/fat.png' %}" class="img-fluid">
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if product.nutriscore > averages.nutriscore %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if product.nutriscore > averages.nutriscore %} Ce produit est moins bien noté que la moyenne. {% else %} Ce produit est mieux noté que la moyenne. {% endif %}">
+                        {% if product.nutriscore == 1 %}
+                            A
+                        {% elif product.nutriscore == 2 %}
+                            B
+                        {% elif product.nutriscore == 3 %}
+                            C
+                        {% elif product.nutriscore == 4 %}
+                            D
+                        {% elif product.nutriscore == 5 %}
+                            E
+                        {% endif %}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if ingredients_nbr > averages.ingredients %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if ingredients_nbr > averages.ingredients %} Ce produit contient plus d'ingrédients que la moyenne. {% else %} Ce produit contient moins d'ingrédients que la moyenne. {% endif %}">
+                        {{ ingredients_nbr }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.salt > averages.salt %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.salt > averages.salt %} Ce produit contient plus de sel que la moyenne. {% else %} Ce produit contient moins de sel que la moyenne. {% endif %}">
+                        {{ nutriments.salt }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if saturated_fat > average_saturated_fat %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if saturated_fat > average_saturated_fat %} Ce produit contient plus de graisse saturé que la moyenne. {% else %} Ce produit contient moins de graisse saturé que la moyenne. {% endif %}">
+                        {{ saturated_fat }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.sodium > averages.sodium %} btn-success {% else %} btn-danger {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if averages.sodium > nutriments.sodium %} Ce produit est moins enrichi en sodium que la moyenne. {% else %} Ce produit est plus enrichi en sodium que la moyenne.{% endif %}">
+                        {{ nutriments.sodium }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.energy_kcal > averages.energy_kcal %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.energy_kcal > averages.energy_kcal %} Ce produit est plus calorique que la moyenne. {% else %} Ce produit est moins calorique que la moyenne. {% endif %}">
+                        {{ nutriments.energy_kcal }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.energy_kj > averages.energy_kj %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.energy_kj > averages.energy_kj %} Ce produit est plus calorique que la moyenne. {% else %} Ce produit est moins calorique que la moyenne. {% endif %}">
+                        {{ nutriments.energy_kj }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.fiber > averages.fiber %} btn-success {% else %} btn-danger {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.fiber > averages.fiber %} Ce produit est plus enrichi en fibre que la moyenne. {% else %} Ce produit est moins enrichi en fibre que la moyenne. {% endif %}">
+                        {{ nutriments.fiber }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.sugars > averages.sugars %} btn-danger {% else %} btn-success {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.sugars > averages.sugars %} Ce produit est plus sucré que la moyenne. {% else %} Ce produit est moins sucré que la moyenne. {% endif %}">
+                        {{ nutriments.sugars }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.proteins > averages.proteins %} btn-success {% else %} btn-danger {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.proteins > averages.proteins %} Ce produit est plus enrichi en protéines que la moyenne. {% else %} Ce produit est moins enrichi en protéine que la moyenne. {% endif %}">
+                        {{ nutriments.proteins }}
+                    </button>
+                </div>
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.carbohydrates > averages.carbohydrates %} btn-success {% else %} btn-danger {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.carbohydrates > averages.carbohydrates %} Ce produit est plus enrichi en glucide que la moyenne. {% else %} Ce produit est moins enrichi en glucide que la moyenne. {% endif %}">
+                        {{ nutriments.carbohydrates }}
+                    </button>
+                </div>
+
+                <div class="col-1">
+                    <button
+                        type="button"
+                        class="btn {% if nutriments.fat > averages.fat %} btn-success {% else %} btn-danger {% endif %} nutriments-popover"
+                        data-container="body"
+                        data-toggle="popover"
+                        data-placement="top"
+                        data-trigger="focus"
+                        data-content="{% if nutriments.fat > averages.fat %} Ce produit contient plus de graisse naturelles que la moyenne. {% else %} Ce produit contient moins de graisse naturelles que la moyenne. {% endif %}">
+                        {{ nutriments.fat }}
+                    </button>
+                </div>
+            </div>
+
+            <div class="row p-2">
+                <div class="col-1">
+                    <!--
+                    <img src="{% static 'substitutes/img/nutriscores/nutriscore_'|add:product.nutriscore|add:'.png' %}" class="img-fluid">
+                    -->
+                    <div class="col-12 nutriscores nutriscore-{{ averages.nutriscore }} rounded-circle">
+                        {% if averages.nutriscore == 1 %}
+                            A
+                        {% elif averages.nutriscore == 2 %}
+                            B
+                        {% elif averages.nutriscore == 3 %}
+                            C
+                        {% elif averages.nutriscore == 4 %}
+                            D
+                        {% elif averages.nutriscore == 5 %}
+                            E
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-1">
+                    {{ averages.ingredients }}
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.salt }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ average_saturated_fat }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.sodium }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.energy_kcal }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.energy_kj }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.fiber }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.sugars }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.proteins }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.carbohydrates }}</p>
+                </div>
+                <div class="col-1">
+                    <p>{{ averages.fat }}</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="col-0 col-md-2"></div>
+
+    </div>
+
+</section>
+
+<section class="container-fluid" id="product-ingredients">
+
+    <div class="row text-center p-5">
+
+        <div class="col-0 col-md-2"></div>
+
+        <div class="col-12 col-md-8 p-0">
+
+            <h2 class="col-12 pb-4">Ingrédients</h3>
+
+            {% for ingredient in ingredients %}
+
+                <button type="button" class="btn btn-dark m-1">
+                    {{ ingredient.text }} <span class="badge badge-light">{{ ingredient.percent }} %</span>
+                </button>
+
+            {% endfor %}
+
+        </div>
+
+        <div class="col-0 col-md-2"></div>
+
+    </div>
+
+</section>
+
+<section class="container-fluid" id="product-stores">
+
+    <div class="row text-center p-5">
+
+        <div class="col-0 col-md-2"></div>
+
+        <div class="col-12 col-md-8 p-0">
+
+            <h2 class="col-12 pb-4">Ou acheter ce produit ?</h3>
+
+            {% if product.stores == "Unknown" %}
+            <h3>Oups ! Nous ne savons pas encore ou trouver ce produit !<h3>
+            {% else %}
+                <h3>{{ product.stores }}</h3>
+            {% endif %}
+
+        </div>
+
+        <div class="col-0 col-md-2"></div>
+
+    </div>
+
+</section>
+
+<script>
+
+    $(function () {
+        $('[data-toggle="popover"]').popover({html:true})
+    })
+
+    $('.popover-dismiss').popover({
+        trigger: 'focus'
+    })
+
+</script>
+{% endblock %}

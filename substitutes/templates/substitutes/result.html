@@ -1,0 +1,53 @@
+{% extends "substitutes/base.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% load static %}
+{% block header %}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-0 col-md-3"></div>
+        <div class="col-12 col-md-6 text-center">
+            <h2 class="mt-5 p-2 search">{{ title }}</h2>
+        </div>
+        <div class="col-0 col-md-3"></div>
+    </div>
+
+</div>
+{% endblock %}
+
+{% block content %}
+
+<section class="container-fluid">
+
+    <div class="row p-2">
+
+        {% if products %}
+
+            {% for product in products %}
+
+                {% include 'substitutes/thumbnail.html' %}
+
+            {% endfor %}
+
+            {% else %}
+
+                <div class="col-12 col-md-4"></div>
+                <div class="col-12 col-md-4 text-center p-4">
+                    <h2>Cette recherche n'a rien donnée !</h2>
+                </div>
+                <div class="col-12 col-md-4"></div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% if products %}
+
+    {% include 'substitutes/paging.html' %}
+
+{% endif %}
+
+{% endblock %}

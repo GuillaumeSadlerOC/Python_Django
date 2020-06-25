@@ -1,0 +1,47 @@
+{% load static %}
+<nav class="navbar navbar-expand-lg navbar-light navbar-custom">
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <a class="navbar-brand" href="{% url 'index' %}">
+        <img src="{% static 'substitutes/img/logo_purbeurre.png' %}" width="30" height="30" class="d-inline-block align-top" alt="PurBeurre logo">
+        <b>PurBeurre</b>
+    </a>
+
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <form action="{% url 'results' %}" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <input class="form-control" name="product-name" type="text" placeholder="Chercher" aria-label="Search">
+                </form>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile' %}">
+                        <img src="{% static 'substitutes/img/account.png' %}" width="20" height="20" class="d-inline-block align-top" alt="">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'favorites' %}">
+                        <img src="{% static 'substitutes/img/favorites.png' %}" width="25" height="25" class="d-inline-block align-top" alt="">
+                    </a>
+
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                {% else %}
+                    <a class="nav-link" href="{% url 'login' %}">
+                        <i class="fas fa-sign-in-alt"></i>
+                    </a>
+                {% endif %}
+            </li>
+        </ul>
+    </div>
+</nav>

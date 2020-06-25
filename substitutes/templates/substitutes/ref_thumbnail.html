@@ -1,0 +1,29 @@
+{% load static %}
+<div class="col-12 col-md-4 ref-thumbnail text-center p-4">
+
+    <div class="nutriscores nutriscore-{{ ref_product.nutriscore }} rounded-circle">
+        {% if ref_product.nutriscore == 1 %}
+            A
+        {% elif ref_product.nutriscore == 2 %}
+            B
+        {% elif ref_product.nutriscore == 3 %}
+            C
+        {% elif ref_product.nutriscore == 4 %}
+            D
+        {% elif ref_product.nutriscore == 5 %}
+            E
+        {% endif %}
+
+        {{ nutriscore }}
+    </div>
+
+    <a href="{% url 'product' ref_product.id %}">
+        <img src="{{ ref_product.image }}" class="img-fluid" alt="">
+    </a>
+    <h2 class="p-2">{{ ref_product.name }}</h2>
+
+    <a href="{% url 'add_favorite' ref_product.id %}" class="mb-3 btn btn-outline-danger active" role="button" aria-pressed="true">
+        <i class="far fa-heart"></i>
+    </a>
+
+</div>

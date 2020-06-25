@@ -1,0 +1,23 @@
+<section class="container-fluid">
+
+    <div class="row p-2">
+
+        <div>
+            {% if products.has_previous %}
+                <a class="btn btn-outline-secondary" href="?page=1&name={{ title }}">&laquo; first</a>
+                <a class="btn btn-dark" href="?page={{ products.previous_page_number }}&name={{ title }}">previous</a>
+            {% endif %}
+
+            <span class="p-2">
+                Page {{ products.number }} sur {{ products.paginator.num_pages }}
+            </span>
+
+            {% if products.has_next %}
+                <a class="btn btn-dark" href="?page={{ products.next_page_number }}&name={{ title }}">next</a>
+                <a class="btn btn-outline-secondary" href="?page={{ products.paginator.num_pages }}&name={{ title }}">last &raquo;</a>
+            {% endif %}
+        </div>
+
+    </div>
+
+</section>

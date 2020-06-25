@@ -1,0 +1,49 @@
+{% extends "substitutes/base.html" %}
+{% block title %}Inscription{% endblock %}
+{% load crispy_forms_tags %}
+{% block css %}
+{% load static %}
+<style type="text/css">
+    header {
+        background-image: url({% static 'substitutes/img/background.jpg' %});
+    }
+</style>
+{% endblock %}
+{% block header %}
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-0 col-md-3"></div>
+        <div class="col-12 col-md-6 text-center">
+            <h2 class="mt-5 p-2 search">Inscription</h2>
+        </div>
+        <div class="col-0 col-md-3"></div>
+    </div>
+
+</div>
+{% endblock %}
+{% load crispy_forms_tags %}
+{% block content %}
+<section class="container-fluid">
+    <div class="row">
+        <div class="col-0 col-md-4"></div>
+        <div class="col-0 col-md-4">
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    <legend class="border-bottom mb-4">Bienvenue !</legend>
+                    {{ form|crispy }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit">Inscription</button>
+                </div>
+            </form>
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Vous avez déjà un compte ? <a class="ml-2" href="{% url 'login' %}">Se connecter</a>
+                </small>
+            </div>
+        </div>
+        <div class="col-0 col-md-4"></div>
+    </section>
+{% endblock %}

@@ -1,0 +1,230 @@
+/*********
+CSS FILES FOR PURBEURREV2
+
+AUTHOR : Guillaume SADLER
+DATE : 05/2019
+**********/
+
+/*** GLOBAL ***/
+
+body{
+    font-family: "Scope One", sans-serif;
+}
+
+h1, h2, h3, h4{
+    font-family: "Open Sans", sans-serif;
+}
+
+/*** BASE ***/
+
+/** BASE > HEADER CUSTOMIZATION **/
+header{
+    background-image: url('/static/substitutes/img/background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    -webkit-background-size: cover;
+    height: 225px;
+    min-height: 10em;
+    margin:0;
+    padding:0;
+}
+
+header h1, header h2{
+    color: white;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+header h1{
+    font-size: 40px;
+}
+
+header h2{
+    font-size: 30px;
+}
+
+/** BASE > NAVBAR CUSTOMIZATION **/
+.navbar-custom {
+    background-color:rgba(196, 85, 37, 0.3);
+}
+.navbar-brand b{
+    color: rgba(255, 255, 255, 1);
+    font-size: 1em;
+    font-family: "Open Sans", sans-serif;
+}
+.nav-link{
+    font-size: 1.2em;
+    color: rgba(255, 255, 255, 1) !important;
+}
+
+/** BASE > FOOTER CUSTOMIZATION **/
+
+.page-footer{
+    bottom:0;
+}
+
+.footer-social{
+    background-color: rgba(196, 85, 37, 1);
+    color: rgba(255, 255, 255, 1);
+}
+
+.footer-links{
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.footer-copyright{
+    background-color: rgba(52, 90, 97, 0.8);
+}
+
+.page-footer a{
+    color: rgba(0, 0, 0, 1);
+}
+
+/*** SUBSTITUTES INDEX ***/
+
+#history img{
+    height: 200px;
+}
+
+#contact{
+    background-color: rgba(232, 167, 93, 1);
+}
+
+#contact img{
+    height: 50px;
+}
+
+#contact h2{
+    font-size: 2em;
+}
+
+#contact h3, #history h3{
+    font-size: 1em;
+}
+
+/*** PRODUCT THUMBNAIL ***/
+
+.thumbnail{
+    border: 1px solid rgba(222, 226, 230, 1);
+    position:relative;
+}
+
+.thumbnail img{
+    height: 225px;
+}
+
+/** PRODUCT THUMBNAIL > REFERENCE THUMBNAIL **/
+
+.ref-thumbnail{
+    background-color: #00A65D;
+}
+
+.ref-thumbnail img{
+    height: 225px;
+}
+
+/** PRODUCT THUMBNAIL > NUTRISCORES **/
+
+.nutriscores{
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    right: 30px;
+    color: white;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 25px;
+    font-family: "Open Sans", sans-serif;
+}
+.nutriscore-1{
+    background-color: rgba(3, 129, 65, 1);
+}
+.nutriscore-2{
+    background-color: rgba(133, 187, 47, 1);
+}
+.nutriscore-3{
+    background-color: rgba(254, 203, 2, 1);
+}
+.nutriscore-4{
+    background-color: rgba(238, 129, 0, 1);
+}
+.nutriscore-5{
+    background-color: rgba(230, 62, 17, 1);
+}
+
+/*** PROFIL ***/
+
+.social-networks a{
+    color: rgba(255, 255, 255, 1);
+}
+
+/*** PRODUCT SHEET ***/
+
+/** PRODUCT SHEET > INTRODUCTION **/
+
+#product-intro{
+    background-color: rgba(255, 255, 255, 1);
+}
+
+#product-intro div.sheet{
+    text-align: left;
+}
+
+#product-intro h2.name{
+    font-weight: bold;
+}
+
+#product-intro h3.brand{
+    font-size: 25px;
+}
+
+.roundedImage{
+    overflow:hidden;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    width: 225px;
+    height: 250px;
+}
+
+/** PRODUCT SHEET > NUTRIMENTS **/
+
+#product-nutriments .nutriscores{
+    width: 25px;
+    height: 25px;
+    color: white;
+    padding: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 10px;
+    font-family: "Open Sans", sans-serif;
+}
+
+#product-nutriments .nutriments-popover{
+    width: 100%;
+}
+
+#product-nutriments img{
+    height: 50px;
+}
+
+/** PRODUCT SHEET > INGREDIENTS **/
+
+#product-ingredients{
+    background-color: rgba(232, 167, 93, 1);
+}
+
+#product-ingredients h2{
+    font-weight: bold;
+}
+
+/** PRODUCT SHEET > STORES **/
+
+#product-stores{
+    background-color: rgba(196, 85, 37, 1);
+}
+
+#product-stores h2{
+    font-weight: bold;
+}
